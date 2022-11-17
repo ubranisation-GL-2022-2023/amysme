@@ -31,10 +31,11 @@ Teams-management:
 Services:
     First-Service:
         Service-Name: Web-portal
+        Description: website + auth + crud + rbac, nestjs prefered
         Team-Number: 2
         Team-Members:
-            -
-            -
+            - Ramzi
+            - Wassime
         Service-Description: Creating the enterprise web portal
         Tasks:
             - RBAC (public user, client, supplier, engineer).
@@ -51,10 +52,11 @@ Services:
             - Simple forms (nothing too complex).
     Second-Service:
         Service-Name: File-transformation-service.
+        Description: Desktop app
         Team-Number: 3
         Team-Members:
-            -
-            -
+            - Zied
+            - Yassine
         Service-Description: Creating a service that accepts and transform files
         / if it can be written in another language and then integrate it, it will show how good the system
         / handles cross-languages services.
@@ -70,9 +72,10 @@ Services:
     Third-Service:
         Service-Name: Reports-Generation
         Team-Number: 4
+        Description: matplotlib generate charts and print to pdf file
         Team-Members:
-            -
-            -
+            - Maissa
+            - Rami
         Service-Description: This service takes data in input and generate graphics and charts with
         / ability to generate pdf files
         Tasks:
@@ -92,8 +95,8 @@ Services:
         Service-Name: Personal-Evaluation-and-registering
         Team-Number: 5
         Team-Members:
-            -
-            -
+            - Marwen krichen
+            - Taher
         Service-Description: This service let you read a cv in pdf format, or form and to rate it, take
             / employees reclamations and demands for day-offs...
         Tasks:
@@ -109,8 +112,8 @@ Services:
         Service-Name: Engineering-plan
         Team-Number: 6
         Team-Members:
-            -
-            -
+            - Hamza
+            - Marwen mahou
         Service-Description: Create the house installation plan (hardware to be used, pricing, estimated
         / time to completions ...
         Tasks:
