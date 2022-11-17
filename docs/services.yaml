@@ -2,7 +2,7 @@
 # [ name ]  indicates the department involved in the operation
 # We will base the problems we mentionned on these operations and departments
 
-# All data structures will be served to each team to keep things 
+# All data structures will be served to each team to keep things
 # Server side of certain services can just log or print to file the result
 # Databases will be created and forwarded later on ( we can start by using static json objects)
 # Words may look terrifying but we just need the minimum not everything needs to be perfect
@@ -18,7 +18,7 @@ Work-methodology:
     communication: Github Issues
     /(https://docs.github.com/en/issues/tracking-your-work-with-issues/quickstart), github actions
     / or facebook.
-Teams-management: 
+Teams-management:
     Team-Number: 1
     Team-Members:
         - Wadhah Mahrouk
@@ -28,12 +28,12 @@ Teams-management:
         - validating services logic and workflow.
         - developping if task too big.
         - maintaining report.
-Services: 
-    First-Service: 
+Services:
+    First-Service:
         Service-Name: Web-portal
         Team-Number: 2
         Team-Members:
-            -  
+            -
             -
         Service-Description: Creating the enterprise web portal
         Tasks:
@@ -46,14 +46,14 @@ Services:
             / can propose an offer [Supply] [finance] [R&D].
             - engineer can check the current progress of the work [engineering]
             / what to do next [engineering].
-        Context: 
+        Context:
             - Simple design.
             - Simple forms (nothing too complex).
-    Second-Service: 
+    Second-Service:
         Service-Name: File-transformation-service.
         Team-Number: 3
         Team-Members:
-            -  
+            -
             -
         Service-Description: Creating a service that accepts and transform files
         / if it can be written in another language and then integrate it, it will show how good the system
@@ -63,15 +63,15 @@ Services:
             - Transform those files into a JSON Format that can be exploited by other services
             / [ all departments ] (Document management system).
             - Save them into a database.
-        Context: 
+        Context:
             - PDF reading and transformation will be OP.
             - I believe the others are very doable with python .
             / (https://www.geeksforgeeks.org/working-with-pdf-files-in-python/).
-    Third-Service: 
+    Third-Service:
         Service-Name: Reports-Generation
         Team-Number: 4
         Team-Members:
-            -  
+            -
             -
         Service-Description: This service takes data in input and generate graphics and charts with
         / ability to generate pdf files
@@ -81,35 +81,35 @@ Services:
             - Data to be taken in consideration are financial data for [finance], research data for
             / the [R&D] department, personal for the [HR] and marketing data[marketing].
             - generate a pdf of the page.
-        Context: 
-            - keep it simple, max 2 of anything (table, chart, graph ..) it just using libraries 
+        Context:
+            - keep it simple, max 2 of anything (table, chart, graph ..) it just using libraries
             / techno in relation with Team 2.
             - Data will be simple.
             - Start by using static json structure then we add the database.
             - This service instance will be created as many times as needed between departments
             / (or use conditions).
-    Fourth-Service: 
+    Fourth-Service:
         Service-Name: Personal-Evaluation-and-registering
         Team-Number: 5
         Team-Members:
-            -  
+            -
             -
         Service-Description: This service let you read a cv in pdf format, or form and to rate it, take
             / employees reclamations and demands for day-offs...
         Tasks:
             - Read pdf format or form and generate a review (accept, decline with note) [HR]
             - Reclatmations and demands management [HR]
-            - Ensure an RBAC 
-        Context: 
+            - Ensure an RBAC
+        Context:
             - Not necessarly that the pdf holds a the true form of a cv or all its details, create it
             / in a way that lets you use it efficiently
             - We mention here the possibility of getting a paper format cv, solution ensured by the form
-            - reclamations and demands can be setted in a table and simply accepted or rejected   
-    Fith-Service: 
+            - reclamations and demands can be setted in a table and simply accepted or rejected
+    Fith-Service:
         Service-Name: Engineering-plan
         Team-Number: 6
         Team-Members:
-            -  
+            -
             -
         Service-Description: Create the house installation plan (hardware to be used, pricing, estimated
         / time to completions ...
@@ -117,20 +117,20 @@ Services:
             - Take in input a customer demand
             - Generates the plan for the this demand
             - Inform all engineering departments with requirements and update engineers tasks
-        Context: 
+        Context:
             - Data in JSON files
             - Plan generation can be through conditions (on surface, budget, place ...)
             - Inform can be a simple print command or JSON file generation
 Research:
-    First-Subject: 
+    First-Subject:
         Subject-Name: Communication-medium
-        Team-Number: 
+        Team-Number:
         Team-Members:
-            -  
             -
-        Subject-Description: The tools/packages we need to use to add a communication layer between all 
+            -
+        Subject-Description: The tools/packages we need to use to add a communication layer between all
         / these services (middlewares ...)
         Tasks:
             - a lot of research and trying.
-        Context: 
+        Context:
             - We need a practical solution not like talend
