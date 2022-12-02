@@ -25,7 +25,7 @@ import { Address } from './address.entity';
 @Entity('user')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  @IsUUID()
+  @IsUUID('4', { message: 'User Identifier must be of the form uuid v.4' })
   @IsOptional()
   id: string;
 
@@ -132,6 +132,7 @@ export class User {
   @OneToOne((_) => Address, {
     nullable: true,
     onDelete: 'SET NULL',
+    eager: true,
   })
   @IsOptional()
   adress: Address;
