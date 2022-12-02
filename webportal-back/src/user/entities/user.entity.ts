@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DepartmentEnum } from '../enums/department.enum';
 import { PaymentMethodEnum } from '../enums/paymentmethod.enum';
 import { RoleEnum } from '../enums/role.enum';
@@ -20,6 +20,7 @@ import {
   IsNumberString,
   IsEnum,
 } from 'class-validator';
+import { Address } from './address.entity';
 
 @Entity('user')
 export class User {
@@ -127,8 +128,13 @@ export class User {
   @IsPhoneNumber('TN', { message: 'The provided phone  number is not valid' })
   phoneNumber: string;
 
-  @Column()
-  adress_id: string;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @OneToOne((_) => Address, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  @IsOptional()
+  adress: Address;
 
   @Column({
     name: 'Bank_Account',
