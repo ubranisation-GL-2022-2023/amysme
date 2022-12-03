@@ -21,9 +21,10 @@ import {
   IsEnum,
 } from 'class-validator';
 import { Address } from './address.entity';
+import { TimestampEntity } from 'src/generics/object/timestamp.entity';
 
 @Entity('user')
-export class User {
+export class User extends TimestampEntity {
   @PrimaryGeneratedColumn('uuid')
   @IsUUID('4', { message: 'User Identifier must be of the form uuid v.4' })
   @IsOptional()
@@ -112,6 +113,7 @@ export class User {
     name: 'Email',
     type: String,
     nullable: false,
+    unique: true,
   })
   @IsNotEmpty({ message: 'The Email is required' })
   @IsString({ message: 'The Email must be a string' })

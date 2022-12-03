@@ -8,10 +8,11 @@ import {
   IsUUID,
   MinLength,
 } from 'class-validator';
+import { TimestampEntity } from 'src/generics/object/timestamp.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('address')
-export class Address {
+export class Address extends TimestampEntity {
   @PrimaryGeneratedColumn('uuid')
   @IsUUID('4', { message: 'User Identifier must be of the form uuid v.4' })
   @IsOptional()

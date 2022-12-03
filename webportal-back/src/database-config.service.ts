@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { User } from './user/entities/user.entity';
 
 @Injectable()
 export class DatabaseConfigService implements TypeOrmOptionsFactory {
@@ -15,6 +14,8 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
       password: this.configService.get<string>('DB_PASSWD'),
       database: this.configService.get<string>('DB_NAME'),
       autoLoadEntities: true,
+      logging: true,
+      synchronize: true,
     };
   }
 }
