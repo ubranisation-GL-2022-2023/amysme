@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { DepartmentEnum } from '../enums/department.enum';
 import { PaymentMethodEnum } from '../enums/paymentmethod.enum';
 import { RoleEnum } from '../enums/role.enum';
@@ -38,7 +44,7 @@ export class User extends TimestampEntity {
     unique: true,
   })
   @IsString({ message: 'String is required for the username' })
-  @IsAlphanumeric('The username must be alphanumeric')
+  @IsAlphanumeric()
   @IsNotEmpty({ message: 'The username is required' })
   @MinLength(3, {
     message: 'A username must not be shorter than 3 charachters',
@@ -55,7 +61,7 @@ export class User extends TimestampEntity {
     length: 20,
   })
   @IsString({ message: 'String is required for the first name' })
-  @IsAlpha('EN', { message: 'The firstname must be alphabetique' })
+  @IsAlpha()
   @IsNotEmpty({ message: 'The firstname is required' })
   @MinLength(3, {
     message: 'A firstname must not be shorter than 3 charachters',
@@ -72,7 +78,7 @@ export class User extends TimestampEntity {
     length: 20,
   })
   @IsString({ message: 'String is required for the first name' })
-  @IsAlpha('EN', { message: 'The lastname must be alphabetique' })
+  @IsAlpha()
   @IsNotEmpty({ message: 'The firstname is required' })
   @MinLength(3, {
     message: 'A firstname must not be shorter than 3 charachters',
@@ -133,11 +139,12 @@ export class User extends TimestampEntity {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToOne((_) => Address, {
     nullable: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
     eager: true,
   })
+  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   @IsOptional()
-  adress: Address;
+  address: Address;
 
   @Column({
     name: 'Bank_Account',
@@ -172,6 +179,7 @@ export class User extends TimestampEntity {
     enum: RoleEnum,
     default: RoleEnum.client,
   })
+  @IsOptional()
   @IsEnum(RoleEnum, { message: 'The role provided is not recognized' })
   role: RoleEnum;
 
@@ -181,6 +189,7 @@ export class User extends TimestampEntity {
     enum: DepartmentEnum,
     nullable: true,
   })
+  @IsOptional()
   @IsEnum(DepartmentEnum, {
     message: 'The Departement specified is not recognized',
   })
@@ -193,7 +202,7 @@ export class User extends TimestampEntity {
   })
   @IsOptional()
   @IsString({ message: 'The name of the company is a string' })
-  @IsAlpha('EN', { message: 'The name of the company must be alphabetic' })
+  @IsAlpha()
   @MinLength(5, {
     message: 'The name of the company must contain at least 5 characters',
   })

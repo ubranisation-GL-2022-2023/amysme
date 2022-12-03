@@ -26,9 +26,7 @@ export class Address extends TimestampEntity {
   })
   @IsString({ message: 'The name of the street must be a string' })
   @IsNotEmpty({ message: 'The name of the street must be provided' })
-  @IsAlphanumeric('EN', {
-    message: 'The name of the street must be alphanumeric',
-  })
+  @IsAlphanumeric()
   @MinLength(5, {
     message: 'The name of the street must contain at least 5 characters',
   })
@@ -42,9 +40,7 @@ export class Address extends TimestampEntity {
   })
   @IsString({ message: 'The name of the city must be a string' })
   @IsNotEmpty({ message: 'The name of the city must be provided' })
-  @IsAlpha('EN', {
-    message: 'The name of the city must be alphabetic',
-  })
+  @IsAlpha()
   @MinLength(5, {
     message: 'The name of the city must contain at least 5 characters',
   })
@@ -58,9 +54,7 @@ export class Address extends TimestampEntity {
   })
   @IsString({ message: 'The name of the governorate must be a string' })
   @IsNotEmpty({ message: 'The name of the governorate must be provided' })
-  @IsAlpha('EN', {
-    message: 'The name of the governorate must be alphabetic',
-  })
+  @IsAlpha()
   @MinLength(5, {
     message: 'The name of the governorate must contain at least 5 characters',
   })
@@ -74,9 +68,7 @@ export class Address extends TimestampEntity {
   })
   @IsString({ message: 'The name of the country must be a string' })
   @IsNotEmpty({ message: 'The name of the country must be provided' })
-  @IsAlpha('EN', {
-    message: 'The name of the ccountry must be alphabetic',
-  })
+  @IsAlpha()
   @MinLength(5, {
     message: 'The name of the country must contain at least 5 characters',
   })
