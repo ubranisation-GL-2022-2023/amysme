@@ -1,22 +1,55 @@
 import {
+  BadRequestException,
   Injectable,
   NotAcceptableException,
   NotFoundException,
 } from '@nestjs/common';
-import { response } from 'express';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/services/user.service';
+import { JwtPayload } from '../dtos/jwt-payload.dto';
 import { LoginRequestDto } from '../dtos/login-req.dto';
 import { AuthenticationResponseDto } from '../dtos/login-res.dto';
+import { RegisterRequestDTO } from '../dtos/register-req.dto';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly userRepo: UserService) {}
-  public async register(user): Promise<User> {
-    return await this.userRepo.create(user);
+  constructor(
+    private readonly userRepo: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
+  public async register(
+    user: RegisterRequestDTO,
+  ): Promise<AuthenticationResponseDto> {
+    const { username, email, firstname, lastname, password } = user;
+    const userByEmail: User = await this.userRepo.findByEmail(email);
+    if (userByEmail) {
+      throw new BadRequestException(
+        'The email used already exists please use another one',
+      );
+    }
+    const userByUsername = await this.userRepo.findByUsername(username);
+    if (userByUsername) {
+      throw new BadRequestException(
+        'The username used already exists please use another one',
+      );
+    }
+    const salt = await bcrypt.genSalt();
+    const savedPassword: string = (
+      await bcrypt.hash(password, salt)
+    ).toString();
+    const toBeSaved: User = {
+      username,
+      firstname,
+      lastname,
+      email,
+      password: savedPassword,
+    };
+    const savedUser: User = await this.userRepo.create(toBeSaved);
+    return this.createJWT(savedUser);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   public async login(
     payload: LoginRequestDto,
   ): Promise<AuthenticationResponseDto> {
@@ -28,15 +61,21 @@ export class AuthenticationService {
       throw new NotFoundException(
         "The username or email provided doesn't belong to an existing user",
       );
-    // verification of the password
-    // if password match : create a token and return it as a Authentication response dto
-    let something: boolean;
-    if (something) {
-      const response: AuthenticationResponseDto = {
-        token: 'token string that will be generated',
-      };
-      return response;
+    const isAuthenticated = await bcrypt.compare(password, user.password);
+    if (isAuthenticated) {
+      return this.createJWT(user);
     }
     throw new NotAcceptableException('password provided is incorrect');
+  }
+
+  public async createJWT(user: User): Promise<AuthenticationResponseDto> {
+    const payload: JwtPayload = {
+      email: user.email,
+      role: user.role,
+      username: user.username,
+      id: user.id,
+    };
+    const token: string = this.jwtService.sign(payload);
+    return { token } as AuthenticationResponseDto;
   }
 }

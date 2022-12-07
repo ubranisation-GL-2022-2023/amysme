@@ -34,7 +34,7 @@ export class User extends TimestampEntity {
   @PrimaryGeneratedColumn('uuid')
   @IsUUID('4', { message: 'User Identifier must be of the form uuid v.4' })
   @IsOptional()
-  id: string;
+  id?: string;
 
   @Column({
     name: 'username',
@@ -134,7 +134,7 @@ export class User extends TimestampEntity {
   @IsOptional()
   @IsString({ message: 'The phone number must be a string' })
   @IsPhoneNumber('TN', { message: 'The provided phone  number is not valid' })
-  phoneNumber: string;
+  phoneNumber?: string;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToOne((_) => Address, {
@@ -144,7 +144,7 @@ export class User extends TimestampEntity {
   })
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   @IsOptional()
-  address: Address;
+  address?: Address;
 
   @Column({
     name: 'Bank_Account',
@@ -157,7 +157,7 @@ export class User extends TimestampEntity {
     message: 'The bank account Id must be formed of 16 caracters',
   })
   @IsNumberString({ message: 'The bank account Id is a number' })
-  bankAccount: string;
+  bankAccount?: string;
 
   @Column({
     name: 'Payment_Methods',
@@ -170,7 +170,7 @@ export class User extends TimestampEntity {
   @IsEnum(PaymentMethodEnum, {
     message: 'Invalid value of the payment method: Not recognized',
   })
-  paymentMethod: PaymentMethodEnum[];
+  paymentMethod?: PaymentMethodEnum[];
 
   @Column({
     name: 'role',
@@ -181,7 +181,7 @@ export class User extends TimestampEntity {
   })
   @IsOptional()
   @IsEnum(RoleEnum, { message: 'The role provided is not recognized' })
-  role: RoleEnum;
+  role?: RoleEnum;
 
   @Column({
     name: 'department',
@@ -193,7 +193,7 @@ export class User extends TimestampEntity {
   @IsEnum(DepartmentEnum, {
     message: 'The Departement specified is not recognized',
   })
-  department: DepartmentEnum;
+  department?: DepartmentEnum;
 
   @Column({
     name: 'company',
@@ -206,5 +206,5 @@ export class User extends TimestampEntity {
   @MinLength(5, {
     message: 'The name of the company must contain at least 5 characters',
   })
-  company: string;
+  company?: string;
 }
