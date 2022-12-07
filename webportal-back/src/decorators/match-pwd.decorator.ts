@@ -16,13 +16,13 @@ export function MatchPassword(
       propertyName,
       options: validationOptions,
       constraints: [property],
-      validator: MatchConstraint,
+      validator: MatchPasswordConstraint,
     });
   };
 }
 
 @ValidatorConstraint({ name: 'MatchPassword' })
-export class MatchConstraint implements ValidatorConstraintInterface {
+export class MatchPasswordConstraint implements ValidatorConstraintInterface {
   validate(value: any, args: ValidationArguments) {
     const [relatedPropertyName] = args.constraints;
     const relatedValue = (args.object as any)[relatedPropertyName];
