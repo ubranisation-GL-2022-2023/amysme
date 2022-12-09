@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-def readEXCEL():
-    df = pd.read_excel('files/users.xlsx')
+def readEXCEL(file_path):
+    df = pd.read_excel(file_path)
 
     json = df.to_json(orient='records')
     print(json)

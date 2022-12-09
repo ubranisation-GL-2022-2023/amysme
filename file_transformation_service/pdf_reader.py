@@ -4,9 +4,9 @@ import PyPDF2
 contract = {}
 
 
-def readPDF():
+def readPDF(file_path):
   # creating a pdf file object
-  pdfFileObj = open('files/contract.pdf', 'rb')
+  pdfFileObj = open(file_path, 'rb')
 
   # creating a pdf reader object
   pdfReader = PyPDF2.PdfFileReader(pdfFileObj)

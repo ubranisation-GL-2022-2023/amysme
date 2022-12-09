@@ -2,8 +2,8 @@ import csv
 import json
 
 
-def readCSV():
-    with open('files/addresses.csv', newline='') as csvfile:
+def readCSV(file_path):
+    with open(file_path, newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         row_count = 0
         columns = []
