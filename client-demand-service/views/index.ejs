@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index page</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <h2>Plan</h2>
+      <center>
+        <b>User:</b>  <%= userId%>
+         <b>Demand:</b> <%= demandId%>
+         <b>Total budget: </b><%= totalBudget%>
+      <center>
+      <ul class="responsive-table">
+        <li class="table-header">
+          <div class="col col-1">No</div>
+          <div class="col col-2">Part Id</div>
+          <div class="col col-3">Name</div>
+          <div class="col col-4">Price</div>
+        </li>
+        <% for(var i=0; i < houseData.length; i++) { %>
+        <li class="table-row">
+          <div class="col col-1" data-label="No">#<%=i %></div>
+          <div class="col col-2" data-label="Part Id"><%= houseData[i].id %></div>
+          <div class="col col-3" data-label="Name"><%= houseData[i].name %></div>
+          <div class="col col-4" data-label="Price"><%= houseData[i].price %></div>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+    
+    <script src="/js/script.js"></script>
+  </body>
+</html>
