@@ -1,54 +1,33 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { Address } from '../entities/address.entity';
 import { AddressService } from '../services/address.service';
 import { UserService } from '../services/user.service';
+import { GetUser } from 'src/decorators/get-user.decorator';
 
-@Controller('users')
+@Controller('account')
 export class UserController {
   constructor(
     private readonly userRepo: UserService,
     private readonly addressRepo: AddressService,
   ) {}
 
-  @Get()
-  public async getAll(): Promise<User[]> {
-    return this.userRepo.findAll();
-  }
-
-  @Post()
-  public async addUser(@Body() user: User): Promise<User> {
-    return this.userRepo.create(user);
-  }
-
-  @Put('/:id')
+  @Put()
   public async updateUser(
-    @Param('id') id: string,
+    @GetUser() currentUser: User,
     @Body() user: User,
   ): Promise<User> {
     if (user.address) {
       await this.addressRepo.create(user.address);
     }
-    return await this.userRepo.update(id, user);
-  }
-  @Get('address')
-  public async listAddresses(): Promise<Address[]> {
-    return this.addressRepo.findAll();
+    return await this.userRepo.update(currentUser.id, user);
   }
 
-  @Delete('/:id')
+  @Delete()
   public async deleteUser(@Param('id') id: string): Promise<User> {
     return await this.userRepo.delete(id);
   }
-  @Delete('/address/:id')
+  @Delete('/address')
   public async deleteAddress(@Param('id') id: string): Promise<Address> {
     return await this.addressRepo.delete(id);
   }
