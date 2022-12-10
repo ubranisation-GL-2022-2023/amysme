@@ -1,25 +1,18 @@
-# importing required modules
 import PyPDF2
 
 contract = {}
 
 
 def readPDF(file_path):
-  # creating a pdf file object
   pdfFileObj = open(file_path, 'rb')
-
-  # creating a pdf reader object
+  print( file_path)
   pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-
-  # printing number of pages in pdf file
-  print(pdfReader.numPages)
-
-  # creating a page object
   pageObj = pdfReader.getPage(0)
 
-  # extracting text from page
   print(pageObj.extractText())
   text = pageObj.extractText()
+
+  # return { "data": []}
 
   lines = text.split('\n')
   # for i in lines:

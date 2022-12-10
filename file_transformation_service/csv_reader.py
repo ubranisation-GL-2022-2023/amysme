@@ -23,6 +23,6 @@ def readCSV(file_path):
                 out['data'].append(data)
 
         json_object = json.dumps(out)
-
-        with open("out/csv_out.json", "w") as outfile:
-            outfile.write(json_object)
+        return json_object
+        # with open("out/csv_out.json", "w") as outfile:
+        #     outfile.write(json_object)
