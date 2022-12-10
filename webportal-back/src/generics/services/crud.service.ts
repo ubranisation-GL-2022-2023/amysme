@@ -6,10 +6,10 @@ export abstract class CrudService<Entity> {
     return await this.repository.find();
   }
   public abstract findById(id: string): Promise<Entity>;
-  public async create(entity: Entity): Promise<Entity> {
+  public async create(entity): Promise<Entity> {
     return this.repository.save(entity);
   }
-  public async update(id: string, entity: Entity): Promise<Entity> {
+  public async update(id: string, entity): Promise<Entity> {
     const newEntity = await this.repository.preload({
       id,
       ...entity,
