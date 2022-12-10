@@ -1,6 +1,6 @@
 export enum RoleEnum {
   client = 'client',
   supplier = 'suplier',
-  engineer = 'engineer',
+  candidate = 'candidate',
   employee = 'employee',
 }

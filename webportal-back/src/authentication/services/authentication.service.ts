@@ -22,7 +22,7 @@ export class AuthenticationService {
   public async register(
     user: RegisterRequestDTO,
   ): Promise<AuthenticationResponseDto> {
-    const { username, email, firstname, lastname, password } = user;
+    const { username, email, firstname, lastname, password, role } = user;
     const userByEmail: User = await this.userRepo.findByEmail(email);
     if (userByEmail) {
       throw new BadRequestException(
@@ -45,6 +45,7 @@ export class AuthenticationService {
       lastname,
       email,
       password: savedPassword,
+      role,
     };
     const savedUser: User = await this.userRepo.create(toBeSaved);
     return this.createJWT(savedUser);

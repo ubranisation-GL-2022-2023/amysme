@@ -177,9 +177,7 @@ export class User extends TimestampEntity {
     nullable: false,
     type: 'enum',
     enum: RoleEnum,
-    default: RoleEnum.client,
   })
-  @IsOptional()
   @IsEnum(RoleEnum, { message: 'The role provided is not recognized' })
   role?: RoleEnum;
 

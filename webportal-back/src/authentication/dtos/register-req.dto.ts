@@ -9,6 +9,7 @@ export class RegisterRequestDTO extends PickType(User, [
   'lastname',
   'password',
   'email',
+  'role',
 ]) {
   @IsNotEmpty({ message: 'repeated password is required' })
   @IsString({ message: 'the repeated password must be of form string' })
