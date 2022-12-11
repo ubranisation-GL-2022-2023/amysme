@@ -1,0 +1,47 @@
+<div class="container">
+  <table class="mat-elevation-z8">
+
+    <thead>
+    <tr >
+      <td>Number</td>
+      <td>Id</td>
+      <td>Demand Id</td>
+      <td>User Id</td>
+      <td>Content</td>
+      <td>Status</td>
+      <td>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let reclamation of reclamations; index as i">
+      <ng-container >
+        <td>{{i + 1}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{reclamation['_id']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{reclamation['reclamationId']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{reclamation['userId']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{reclamation['content']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{reclamation['status']}}</td>
+      </ng-container>
+      <ng-container >
+        <button mat-raised-button color="primary" class="button" (click)="update(i)">Change status</button>
+      </ng-container>
+    </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+
