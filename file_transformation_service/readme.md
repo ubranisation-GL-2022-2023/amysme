@@ -14,7 +14,7 @@ types handeled:
 * YAML
 * PDF
 
-**APIs:**
+**Endpoints:**
 * GET ==> /csv/filename returns json from csv source
 * GET ==> /yaml/filename returns json from yaml source
 * GET ==> /excel/filename returns json from yaml source
