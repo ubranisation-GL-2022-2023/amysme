@@ -20,5 +20,8 @@ export class CustomerDemandService extends CrudService<CustomerDemandEntity> {
 
   public async findByUser(user: User): Promise<CustomerDemandEntity[]> {
     // need to read about query builder to create an inner join query
+    return await this.repo.query(
+      `select * from customerDemand where user_id = ${user.id}`,
+    );
   }
 }
