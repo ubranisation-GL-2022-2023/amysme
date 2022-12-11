@@ -19,7 +19,7 @@ export class DemandsService {
   }
 
   postDemand(newCandidature : any){
-    this.http.post(environment.demandApiBaseUrl + '/add',newCandidature).subscribe(res=>{
+    this.http.post(environment.demandApiBaseUrl + '/',newCandidature).subscribe(res=>{
       // console.log(res)
     });
   }

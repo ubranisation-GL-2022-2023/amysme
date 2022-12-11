@@ -19,7 +19,7 @@ export class ReclamationService {
   }
 
   postReclamation(newCandidature : any){
-    this.http.post(environment.reclamationApiBaseUrl + '/add',newCandidature).subscribe(res=>{
+    this.http.post(environment.reclamationApiBaseUrl + '/',newCandidature).subscribe(res=>{
       // console.log(res)
     });
   }

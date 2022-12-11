@@ -13,13 +13,13 @@ export class CandidatureService {
 
 
   getCandidatures(){
-    return this.http.get(environment.candidatureApiBaseUrl + '/all-candidature').pipe(map((data:any)=>{
+    return this.http.get(environment.candidatureApiBaseUrl + '/').pipe(map((data:any)=>{
         return data;
     }));
   }
 
   postCandidature(newCandidature : any){
-    this.http.post(environment.candidatureApiBaseUrl + '/register',newCandidature).subscribe(res=>{
+    this.http.post(environment.candidatureApiBaseUrl + '/',newCandidature).subscribe(res=>{
        // console.log(res)
    });
  }

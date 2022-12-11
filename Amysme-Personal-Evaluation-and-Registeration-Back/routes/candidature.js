@@ -4,7 +4,7 @@ const Candidature = require('../models/candidature');
 const uuid = require('uuid');
 
 
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
     console.log("req.body")
     try {
         console.log(req.body)
@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
 
 });
 
-router.get('/all-candidature', async (req, res) => {
+router.get('/', async (req, res) => {
     console.log("req.body")
     try {
         candidatures = await Candidature.find();

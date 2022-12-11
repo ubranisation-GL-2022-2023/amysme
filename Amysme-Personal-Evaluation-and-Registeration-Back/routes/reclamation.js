@@ -3,7 +3,7 @@ var router = express.Router();
 const Reclamation = require("../models/reclamation.models")
 const { v4: uuidv4 } = require('uuid');
 
-router.post("/add", async (req, res) => {
+router.post("/", async (req, res) => {
   const reclamation = new Reclamation({
     reclamationId: uuidv4(),
     userId: req.body.userId,
