@@ -19,7 +19,7 @@ export class ReclamationService extends CrudService<ReclamationEntity> {
 
   public async findByUser(user: User): Promise<ReclamationEntity[]> {
     return await this.repo.query(
-      `select * from reclamation where user_id = ${user.id}`,
+      `select * from reclamation where user_id = '${user.id}';`,
     );
   }
 }
