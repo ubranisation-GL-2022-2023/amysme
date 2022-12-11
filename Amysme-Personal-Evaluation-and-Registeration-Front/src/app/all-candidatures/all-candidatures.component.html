@@ -1,0 +1,59 @@
+<div class="container">
+    <table class="mat-elevation-z8">
+
+        <thead>
+            <tr >
+                <td>Number</td>
+                <td>Id</td>
+                <td>Candidature Id</td>
+                <td>User Id</td>
+                <td>Soft Skills</td>
+                <td>Technical Skills</td>
+                <td>Education</td>
+                <td>Work Experience</td>
+                <td>Rating</td>
+                <td>Status</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let candidature of candidatures; index as i">
+                <ng-container >
+                    <td>{{i + 1}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['_id']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['candidatureId']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['userId']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['softSkills']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['technicalSkills']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['education']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['workExperience']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['rating']}}</td>
+                </ng-container>
+                <ng-container >
+                    <td>{{candidature['status']}}</td>
+                </ng-container>
+            </tr>
+        </tbody>
+    
+    </table>
+    
+</div>
+
+
+
+

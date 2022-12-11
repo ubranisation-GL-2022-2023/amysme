@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index page</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <h2>Plan</h2>
+      <center>
+        <b>User:</b>   <input type="number" value="<%= userId%>" id="userId" name="userId" min="1" >
+         <b>Demand:</b>  <input type="number" value="<%= demandId%>" id="demandId" name="demandId" min="1" >
+         <b>Total budget: </b><input type="number" value="<%= totalBudget%>" id="totalBudget" name="totalBudget" min="1" >
+      <center>
+      <ul class="responsive-table">
+        <li class="table-header">
+          <div class="col col-1">No</div>
+          <div class="col col-2">Part Id</div>
+          <div class="col col-3">Name</div>
+          <div class="col col-4">Price</div>
+          <div class="col col-4">Action</div>
+        </li>
+        <% for(var i=0; i < houseData.length; i++) { %>
+        <li class="table-row">
+          <div class="col col-1" data-label="No">#<%=i %></div>
+          <div class="col col-2" data-label="Part Id"><%= houseData[i].id %></div>
+          <div class="col col-3" data-label="Name"><%= houseData[i].name %></div>
+          <div class="col col-4" data-label="Price"><%= houseData[i].price %></div>
+          <div class="col col-4" data-label="Delete"><button type="button" class="btn btn-danger" onclick="SomeDeleteRowFunction()">Delete</button></div>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+    <script>
+      function SomeDeleteRowFunction(o) {
+        //no clue what to put here?
+         var p=o.parentNode.parentNode;
+         p.parentNode.removeChild(p);
+      }
+    </script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>

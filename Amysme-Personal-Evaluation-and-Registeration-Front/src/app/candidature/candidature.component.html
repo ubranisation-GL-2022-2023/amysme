@@ -1,0 +1,99 @@
+
+<div class="container" >
+    <mat-card>
+       <mat-card-header>
+           <mat-card-title class="container">
+               <h3>
+                   Candidature Form
+               </h3>
+           </mat-card-title>
+       </mat-card-header>
+       <form class="example-form">
+   
+   
+           <mat-form-field class="form-element">
+               <mat-select placeholder="Languages" [(ngModel)]="newCandidature['languages']"   multiple="multiple" [ngModelOptions]="{standalone: true}">
+                   <mat-option *ngFor="let language of languagesList" [value]="language">{{language}}</mat-option>
+               </mat-select>
+           </mat-form-field>
+   
+           <mat-form-field class="form-element">
+               <mat-select placeholder="SoftSkills" [(ngModel)]="newCandidature['softSkills']"   multiple="multiple" [ngModelOptions]="{standalone: true}">
+                   <mat-option *ngFor="let softSkill of softSkillsList" [value]="softSkill">{{softSkill}}</mat-option>
+               </mat-select>
+           </mat-form-field>
+   
+   
+           <mat-form-field class="form-element">
+               <mat-select placeholder="TechnicalSkills" [(ngModel)]="newCandidature['technicalSkills']"   multiple="multiple" [ngModelOptions]="{standalone: true}">
+                   <mat-option *ngFor="let technicalSkill of technicalSkillsList" [value]="technicalSkill">{{technicalSkill}}</mat-option>
+               </mat-select>
+           </mat-form-field>
+   
+   
+   
+           
+           <mat-form-field class="example-chip-list" appearance="fill">
+               <mat-label>Education</mat-label>
+               <mat-chip-grid #chipGrid aria-label="Enter educations" [(ngModel)]="newCandidature['education']" [ngModelOptions]="{standalone: true}" ultiple="multiple">
+               <mat-chip-row *ngFor="let education of educations"
+                               (removed)="removeEducation(education)"
+                               [editable]="true"
+                               (edited)="editEducation(education, $event)">
+                   {{education.name}}
+                   <button matChipRemove [attr.aria-label]="'remove ' + education">
+                   <mat-icon>cancel</mat-icon>
+                   </button>
+               </mat-chip-row>
+               <input placeholder="New education..."
+                       [matChipInputFor]="chipGrid"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addEducation($event)"/>
+               </mat-chip-grid>
+           </mat-form-field>
+
+
+   
+   
+   
+   
+   
+           <mat-form-field class="example-chip-list" appearance="fill">
+               <mat-label>WorkExperience</mat-label>
+               <mat-chip-grid #chipGrid2 aria-label="Enter workExperiences" [(ngModel)]="newCandidature['workExperience']" [ngModelOptions]="{standalone: true}" ultiple="multiple">
+               <mat-chip-row *ngFor="let workExperience of workExperiences"
+                               (removed)="removeWorkExperience(workExperience)"
+                               [editable]="true"
+                               (edited)="editWorkExperience(workExperience, $event)">
+                   {{workExperience.name}}
+                   <button matChipRemove [attr.aria-label]="'remove ' + workExperience">
+                   <mat-icon>cancel</mat-icon>
+                   </button>
+               </mat-chip-row>
+               <input placeholder="New workExperience..."
+                       [matChipInputFor]="chipGrid2"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addWorkExperience($event)"/>
+               </mat-chip-grid>
+           </mat-form-field>
+   
+   
+   
+   
+           <div class="form-element-button">
+               <button mat-raised-button color="primary" type="submit" class="button" (click)="sendData()">Submit</button>
+             </div>
+              <div *ngIf="afficheResult">
+
+                    <h4>Score : {{newCandidature['rating']}}</h4>
+             </div>
+       </form>
+   
+
+   
+   
+   </mat-card> 
+   </div>
+   
