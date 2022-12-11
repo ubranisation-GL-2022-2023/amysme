@@ -1,0 +1,40 @@
+
+<div class="container" >
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="container">
+        <h3>
+          Demand Form
+        </h3>
+      </mat-card-title>
+    </mat-card-header>
+    <form class="example-form">
+
+
+
+
+
+      <mat-form-field class="form-element">
+        <mat-label>Comment</mat-label>
+        <input [(ngModel)]="newDemand.comment" [ngModelOptions]="{standalone: true}" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Reason</mat-label>
+        <mat-select [(ngModel)]="newDemand.reason" [ngModelOptions]="{standalone: true}" >
+          <mat-option value=0>dayOff</mat-option>
+          <mat-option value=1>payment</mat-option>
+          <mat-option value=2>resign</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="form-element-button">
+        <button mat-raised-button color="primary" type="submit" class="button" (click)="sendData()">Submit</button>
+      </div>
+    </form>
+
+
+
+
+  </mat-card>
+</div>
