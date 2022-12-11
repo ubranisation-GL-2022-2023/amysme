@@ -15,7 +15,13 @@
     "jade": "~1.11.0",
     "mongoose": "^6.8.0",
     "morgan": "~1.9.1",
-    "uuid": "^9.0.0"
+    "socket.io": "^4.5.4",
+    "uuid": "^9.0.0",
+    "amqplib": "^0.10.3",
+    "bluebird": "^3.7.2",
+    "lodash": "^4.17.21",
+    "logfilename": "^0.3.0",
+    "run-sequence": "^2.2.1"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",

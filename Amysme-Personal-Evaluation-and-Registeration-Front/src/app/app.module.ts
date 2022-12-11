@@ -22,7 +22,8 @@ import { DemandsComponent } from './demands/demands.component';
 import { AllReclamationsComponent } from './all-reclamations/all-reclamations.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ReclamationComponent } from './reclamation/reclamation.component';
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    SocketIoModule.forRoot(config)
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],

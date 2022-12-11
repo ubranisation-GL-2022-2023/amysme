@@ -8,6 +8,9 @@ var app = require('../app');
 var debug = require('debug')('back:server');
 var http = require('http');
 
+const { Server } = require("socket.io");
+var { Subscriber } = require("../rabbitmq/subscriber");
+
 /**
  * Get port from environment and store in Express.
  */
@@ -88,3 +91,50 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**
+ *  Socket
+ */
+
+// Socket
+const io = new Server(server,{cors:{origin:"*"}});
+
+var subscriberOptions = {
+    exchange: "HumanRessources",
+    queueName: "candidature",
+    routingKeys: ["ExternalCandidature"],
+  };
+   
+function onIncomingMessage(message) {
+    console.log("message", message.content.toString());
+    subscriber.ack(message);
+    const newMessage = JSON.parse(message.content.toString())
+    switch (newMessage.type) {
+      case "candidature":
+        io.emit("candidature",newMessage.content)
+        break;
+      case "demand":
+        io.emit("demand",newMessage.content)
+        break;
+      case "reclamation":
+        io.emit("reclamation",newMessage.content)
+        break;
+      default:
+        break;
+    }
+
+    //subscriber.nack(message);
+}
+
+io.on('connection', (socket) => {
+    let previousId;
+
+    const safeJoin = currentId => {
+      socket.leave(previousId);
+      socket.join(currentId, () => console.log(`Socket ${socket.id} joined room ${currentId}`));
+      previousId = currentId;
+    };
+});
+
+var subscriber = new Subscriber(subscriberOptions);
+subscriber.start(onIncomingMessage);
