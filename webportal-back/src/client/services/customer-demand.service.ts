@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudService } from 'src/generics/services/crud.service';
+import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CustomerDemandEntity } from '../entities/customerDemand.entity';
 
@@ -15,5 +16,9 @@ export class CustomerDemandService extends CrudService<CustomerDemandEntity> {
 
   public async findById(id: string): Promise<CustomerDemandEntity> {
     return await this.repo.findOneBy({ id });
+  }
+
+  public async findByUser(user: User): Promise<CustomerDemandEntity[]> {
+    // need to read about query builder to create an inner join query
   }
 }
