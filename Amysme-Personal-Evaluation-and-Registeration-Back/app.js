@@ -48,12 +48,11 @@ app.use(function (err, req, res, next) {
 
 app.use(cors());
 
-
 // DB Connection
-const username = "root";
-const password = "root";
-const cluster = "cluster0.04rslf0";
-const dbname = "Amysme";
+const username = "user1";
+const password = "NFDjRWqVwLWlvwoy";
+const cluster = "cluster0.1xb4gu3";
+const dbname = "";
 
 mongoose.connect(
     `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`,

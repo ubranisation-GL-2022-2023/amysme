@@ -3,7 +3,7 @@ var router = express.Router();
 const employeeDemand = require("../models/employeeDemand.models")
 const { v4: uuidv4 } = require('uuid');
 
-router.post("/add", async (req, res) => {
+router.post("/", async (req, res) => {
     const demand = new employeeDemand({
         demandId: uuidv4(),
         userId: req.body.userId,
