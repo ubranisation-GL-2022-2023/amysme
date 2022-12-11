@@ -10,4 +10,7 @@ def readEXCEL(file_path):
   return json
 
 def json_to_excel(data):
-  pd.DataFrame(data).to_excel("out/generated_data_frame.xlsx")
+  if data["data"] != None:
+    pd.DataFrame(data["data"]).to_excel("out/generated_data_frame.xlsx")
+  else:
+    pd.DataFrame(data).to_excel("out/generated_data_frame.xlsx")

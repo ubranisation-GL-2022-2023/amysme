@@ -19,13 +19,13 @@ def main(argv):
   print(extension)
 
   if extension == ALLOWED_EXTENSIONS[0]:
-    readPDF(argv[1])
+    print(readPDF(argv[1]))
   elif extension == ALLOWED_EXTENSIONS[1]:
-    readCSV(argv[1])
+    print(readCSV(argv[1]))
   elif extension == ALLOWED_EXTENSIONS[2]:
-    readYAML(argv[1])
+    print(readYAML(argv[1]))
   elif extension == ALLOWED_EXTENSIONS[3]:
-    readEXCEL(argv[1])
+    print(readEXCEL(argv[1]))
   else:
     sys.exit()
 
