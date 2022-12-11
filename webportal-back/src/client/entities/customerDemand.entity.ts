@@ -26,7 +26,7 @@ export class CustomerDemandEntity extends TimestampEntity {
   @OneToOne((type) => HouseDataEntity, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: true,
+    eager: false,
   })
   @JoinColumn({ name: 'house_id', referencedColumnName: 'id' })
   house: HouseDataEntity;
