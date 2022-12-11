@@ -5,7 +5,7 @@
 ### Service description
 
 This service's main objective is to transform various and specific file types to one 
-unfied JSON file. 
+unfied JSON format. 
 <br>
 
 **Types handeled:**
