@@ -139,7 +139,7 @@ export class User extends TimestampEntity {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToOne((_) => Address, {
     nullable: true,
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     eager: true,
   })
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
