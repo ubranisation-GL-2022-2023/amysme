@@ -8,3 +8,6 @@ def readEXCEL(file_path):
     "data": data
   }
   return json
+
+def json_to_excel(data):
+  pd.DataFrame(data).to_excel("out/generated_data_frame.xlsx")

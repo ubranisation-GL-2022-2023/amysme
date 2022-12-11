@@ -1,63 +1,72 @@
-import PyPDF2
+import re
 
-contract = {}
+import PyPDF2
 
 
 def readPDF(file_path):
+  contract = {
+    "contractId": "",
+    "demandId": "",
+    "orderId": "",
+    "userId": "",
+    "contractEstablishmentDate": "",
+    "installationDate": "",
+    "status": "",
+    "engineers": [],
+    "orderPriority": "",
+  }
+
+  regexes = {
+    "reference": ".*reference.*",
+    "date": "[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}",
+    "priority": "priority: "
+  }
+
   pdfFileObj = open(file_path, 'rb')
-  print( file_path)
+  print(file_path)
   pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
   pageObj = pdfReader.getPage(0)
 
-  print(pageObj.extractText())
   text = pageObj.extractText()
 
-  # return { "data": []}
-
   lines = text.split('\n')
-  # for i in lines:
-  # 	print ('-->',i)
-
-  # Agreement Date
-  date = lines[2].split()[-1]
-  contract['contractEstablishmentDate'] = date
-
-  # USer ID
-  user_ref = lines[5][:-3].split('(')[-1]
-  user_id = user_ref.split('reference')[-1]
-  contract['userId'] = user_id.replace(' ', '')
-
-  # DEMAND ID
-
-  # index of the line phrase 'SERVICES TO PERFORM'
-  f = lines.index('SERVICES TO PERFORM  ')
-  for l in lines[7:f]:
-    if ('demand' in l):
-      # index of the word 'demand'
-      i = l.index('demand')
-
-      demand_id = l[i + len('demand (reference') + 1:].split(')')[0]
-      demand_id = demand_id.replace(' ', '')
-
-      contract['demandId'] = int(demand_id)
-
-  # Order Id
-  index = lines.index('ORDER REVIEW  ')
-  order_id = lines[index + 1].split()[-1]
-  contract['orderId'] = int(order_id)
-
-  # ENGINEERS
-  contract['engineers'] = []
-  index_start = lines.index('RESPONSIBLE ENGINEER’S REFERENCES  ') + 1
-  index_end = lines.index('ORDER REVIEW  ')
-  for line in lines[index_start:index_end]:
-    line = line.split('(')
-    ref = line[-1].strip()[:-1]
-    eng_id = ref.split('reference')
-    print(eng_id[-1])
-    contract['engineers'].append(eng_id[-1].replace(' ', ''))
-
-  print(contract)
-
-  # closing the pdf file object
-  pdfFileObj.close()
+  for line in lines:
+    if re.search(regexes["date"], line):
+      slashes = line.split("/")
+      date = slashes[0][-2:] + "/" + slashes[1] + "/" + slashes[2][0:4]
+      if contract["contractEstablishmentDate"] == "":
+        contract["contractEstablishmentDate"] = date
+      else:
+        contract["installationDate"] = date
+    if re.search(regexes["reference"], line):
+      splits = line.split("reference")
+      if splits[1].strip()[0] == ":":
+        res = splits[1].strip()[1:].strip()
+      else:
+        res = splits[1].strip()
+      reference = ""
+      for c in res:
+        if c.isdigit():
+          reference += c
+        else:
+          break
+      print(reference)
+      if contract["contractId"] == "":
+        contract["contractId"] = reference
+      elif contract["userId"] == "":
+        contract["userId"] = reference
+      elif contract["demandId"] == "":
+        contract["demandId"] = reference
+      elif contract["orderId"] == "":
+        contract["orderId"] = reference
+      else:
+        contract["engineers"].append(reference)
+    if re.search(regexes["priority"], line):
+      splits = line.split("priority")
+      priority = ""
+      for c in splits[1]:
+        if c not in [")", " ", ":", "."]:
+          priority += c
+      contract["orderPriority"] = priority
+    contract["status"] = "inProcess"
+  return contract

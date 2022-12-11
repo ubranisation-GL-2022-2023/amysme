@@ -13,3 +13,11 @@ types handeled:
 * CSV
 * YAML
 * PDF
+
+**APIs:**
+* GET ==> /csv/filename returns json from csv source
+* GET ==> /yaml/filename returns json from yaml source
+* GET ==> /excel/filename returns json from yaml source
+* GET ==> /pdf/filename returns json from yaml source
+* POST ==> /excel : data in json format. transforms json to excel
+and save to out

@@ -1,12 +1,12 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 
 from csv_reader import readCSV
-from excel_reader import readEXCEL
+from excel_reader import readEXCEL, json_to_excel
 from pdf_reader import readPDF
 from yaml_reader import readYAML
 
 app = Flask(__name__)
-
+app.config["DEBUG"] = True
 ALLOWED_EXTENSIONS = [
   "pdf",
   "csv",
@@ -35,6 +35,13 @@ def transform_excel(filename):
 @app.get("/yaml/<filename>")
 def transform_yaml(filename):
   return readYAML(files_root + filename)
+
+
+@app.post("/excel")
+def reverse_excel():
+  data = request.json
+  json_to_excel(data)
+  return data
 
 
 if __name__ == '__main__':
