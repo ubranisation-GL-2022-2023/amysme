@@ -7,14 +7,17 @@ import { User } from 'src/user/entities/user.entity';
 import { RoleEnum } from 'src/user/enums/role.enum';
 import { CustomerDemandDto } from '../dtos/demand.dto';
 import { CustomerDemandEntity } from '../entities/customerDemand.entity';
+import { ReclamationEntity } from '../entities/reclamation.entity';
 import { CustomerDemandService } from '../services/customer-demand.service';
 import { HouseService } from '../services/house.service';
+import { ReclamationService } from '../services/reclamation.service';
 
 @Controller()
 export class ClientController {
   constructor(
     private readonly houseService: HouseService,
     private readonly customerService: CustomerDemandService,
+    private readonly reclamationService: ReclamationService,
   ) {}
   @Post('customerDemand')
   @UseGuards(AuthGuard('jwt'), AuthRoleGuard)
@@ -44,5 +47,27 @@ export class ClientController {
     @GetUser() user: User,
   ): Promise<CustomerDemandEntity[]> {
     return await this.customerService.findByUser(user);
+  }
+
+  @Post('reclamation')
+  @UseGuards(AuthGuard('jwt'), AuthRoleGuard)
+  @Role(RoleEnum.client)
+  public async registerReclamation(
+    @Body() payload: ReclamationEntity,
+    @GetUser() currentUser: User,
+  ): Promise<ReclamationEntity> {
+    return await this.reclamationService.create({
+      user: currentUser,
+      content: payload.content,
+    });
+  }
+
+  @Get('reclamation')
+  @UseGuards(AuthGuard('jwt'), AuthRoleGuard)
+  @Role(RoleEnum.client)
+  public async getAllReclamationByUser(
+    @GetUser() currentUser: User,
+  ): Promise<ReclamationEntity[]> {
+    return await this.reclamationService.findByUser(currentUser);
   }
 }

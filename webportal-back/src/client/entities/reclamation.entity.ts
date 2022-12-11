@@ -28,7 +28,6 @@ export class ReclamationEntity extends TimestampEntity {
   @ManyToOne(() => User, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: true,
   })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   @IsOptional()
