@@ -8,7 +8,7 @@ This service's main objective is to transform various and specific file types to
 unfied JSON file. 
 <br>
 
-types handeled:
+**Types handeled:**
 * XLSX
 * CSV
 * YAML
