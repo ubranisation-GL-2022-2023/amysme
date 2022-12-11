@@ -46,8 +46,6 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-app.use(cors());
-
 // DB Connection
 const username = "user1";
 const password = "NFDjRWqVwLWlvwoy";

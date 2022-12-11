@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,9 @@ import { environment } from 'src/environments/environment';
 export class ReclamationService {
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private socket: Socket) { }
 
+  newReclamation = this.socket.fromEvent<any>('reclamation');
 
   getReclamations(){
     return this.http.get(environment.reclamationApiBaseUrl + '/').pipe(map((data:any)=>{
