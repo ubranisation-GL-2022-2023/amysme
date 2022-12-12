@@ -317,13 +317,19 @@ function onIncomingMessage(message) {
     const newMessage = JSON.parse(message.content.toString())
     subscriber.ack(message)
     console.log(newMessage);
-    const {hardware, totalPrice} = handleDemande(newMessage);
-    io.emit('data',{
-      demandId: 2,
-      userId: newMessage.userId,
-      houseData: hardware,
-      totalBudget: totalPrice
-    })
+    if(newMessage.type === "csv" || newMessage.type === "pdf" || newMessage.type === "excel" || newMessage.type === "yaml" ) {
+      console.log(newMessage.content);
+    }
+    else {
+      const {hardware, totalPrice} = handleDemande(newMessage.content);
+      io.emit('data',{
+        demandId: 2,
+        userId: newMessage.userId,
+        houseData: hardware,
+        totalBudget: totalPrice
+      })
+    }
+
 
 }
 
