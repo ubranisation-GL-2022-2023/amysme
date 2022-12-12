@@ -48,6 +48,7 @@ def transform_pdf(filename):
   publisher.publish_message("generated_data",json.dumps({'type':"pdf",'content':contract}))
   return contract 
 
+#cv
 @app.get("/pdf/cv/<filename>")
 def transform_pdf_cv(filename):
   cv = readPDF_cv(files_root + filename)
