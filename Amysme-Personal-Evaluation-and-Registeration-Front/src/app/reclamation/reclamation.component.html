@@ -1,0 +1,31 @@
+
+<div class="container" >
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="container">
+        <h3>
+          Reclamation Form
+        </h3>
+      </mat-card-title>
+    </mat-card-header>
+    <form class="example-form">
+
+
+
+
+
+      <mat-form-field class="form-element">
+        <mat-label>Content</mat-label>
+        <input [(ngModel)]="newReclamation.content" [ngModelOptions]="{standalone: true}" matInput>
+      </mat-form-field>
+
+      <div class="form-element-button">
+        <button mat-raised-button color="primary" type="submit" class="button" (click)="sendData()">Submit</button>
+      </div>
+    </form>
+
+
+
+
+  </mat-card>
+</div>

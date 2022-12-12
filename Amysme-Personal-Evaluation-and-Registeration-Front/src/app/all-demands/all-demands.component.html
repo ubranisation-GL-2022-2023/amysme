@@ -1,0 +1,51 @@
+<div class="container">
+  <table class="mat-elevation-z8">
+
+    <thead>
+    <tr >
+      <td>Number</td>
+      <td>Id</td>
+      <td>Demand Id</td>
+      <td>User Id</td>
+      <td>Reason</td>
+      <td>Comment</td>
+      <td>Status</td>
+      <td>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let demand of demands; index as i">
+      <ng-container >
+        <td>{{i + 1}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{demand['_id']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{demand['demandId']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{demand['userId']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{demand['reason']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{demand['comment']}}</td>
+      </ng-container>
+      <ng-container >
+        <td>{{demand['status']}}</td>
+      </ng-container>
+      <ng-container >
+        <button mat-raised-button color="primary" class="button" (click)="update(i)">Change status</button>
+      </ng-container>
+    </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+

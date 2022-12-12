@@ -1,0 +1,19 @@
+table{
+  width: 100%;
+
+}
+table th td {
+  border: 1px solid gray;
+}
+div{
+  padding: 25px 25px 25px 25px;
+}
+td {
+  background-color:rgb(202, 202, 215);
+  color: rgb(1, 9, 16);
+}
+thead tr td{
+  background-color:rgb(2, 2, 95);
+  color:rgb(202, 202, 215);
+
+}
