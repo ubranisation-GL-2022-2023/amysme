@@ -17,7 +17,8 @@ unfied JSON format.
 **Endpoints:**
 * GET ==> /csv/filename returns json from csv source
 * GET ==> /yaml/filename returns json from yaml source
-* GET ==> /excel/filename returns json from yaml source
-* GET ==> /pdf/contract/filename returns json from yaml source
+* GET ==> /excel/filename returns json from excel source
+* GET ==> /pdf/contract/filename returns json from pdf source
+* GET ==> /pdf/cv/filename returns json from pdf source
 * POST ==> /excel : data in json format. transforms json to excel
 and save to out
