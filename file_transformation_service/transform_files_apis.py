@@ -3,7 +3,7 @@ import json
 
 from csv_reader import readCSV
 from excel_reader import readEXCEL, json_to_excel
-from pdf_reader import readPDF
+from pdf_reader import readPDF_contract, readPDF_cv
 from yaml_reader import readYAML
 
 from rabbitmq.Publisher import Publisher
@@ -42,12 +42,17 @@ def transform_csv(filename):
   return csv
 
 
-@app.get("/pdf/<filename>")
+@app.get("/pdf/contract/<filename>")
 def transform_pdf(filename):
-  contract =  readPDF(files_root + filename)
+  contract =  readPDF_contract(files_root + filename)
   publisher.publish_message("generated_data",json.dumps({'type':"pdf",'content':contract}))
   return contract 
 
+@app.get("/pdf/cv/<filename>")
+def transform_pdf_cv(filename):
+  cv = readPDF_cv(files_root + filename)
+  publisher.publish_message("generated_data",json.dumps({'type':"cv",'content':cv}))
+  return cv 
 
 @app.get("/excel/<filename>")
 def transform_excel(filename):
