@@ -9,8 +9,6 @@ const {v4: uuidv4} = require('uuid');
 const {Server} = require("socket.io");
 var {Subscriber} = require("./rabbitmq/subscriber");
 
-var {Subscriber} = require("./rabbitmq/subscriber");
-
 //   766$
 const One_Room_mid = [
   {
@@ -338,11 +336,11 @@ function onIncomingMessage(message) {
   const newMessage = JSON.parse(message.content.toString())
   subscriber.ack(message)
   console.log(newMessage);
-  const {hardware, totalPrice} = handleDemande(newMessage);
+  const {components, totalPrice} = handleDemande(newMessage);
   io.emit('data', {
     demandId: 2,
     userId: newMessage.userId,
-    houseData: hardware,
+    houseData: components,
     totalBudget: totalPrice
   })
 
