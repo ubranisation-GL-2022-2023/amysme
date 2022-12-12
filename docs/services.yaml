@@ -17,11 +17,13 @@ Tools:
     Containerization: Docker
 Work-methodology:
     Code-management-strategy: mono-repository (use of 'nx' https://nx.dev/)
-    Branches-management: Main through PR's ( name-team Number/feature) ==> Each team member
-    / review his/her's teammate Code before merging
-    Communication: Github Issues
-    /(https://docs.github.com/en/issues/tracking-your-work-with-issues/quickstart), github pullrequests
-    / or facebook.
+    Branches-management: 
+        Main through PR's ( name-team Number/feature) ==> Each team member
+        / review his/her's teammate Code before merging
+    Communication: 
+        Github Issues
+        /(https://docs.github.com/en/issues/tracking-your-work-with-issues/quickstart), github pullrequests
+        / or facebook.
 Teams-management:
     Team-Number: 1
     Team-Members:
@@ -59,9 +61,10 @@ Services:
         Team-Members:
             - Zied Kanoun
             - Yassine Lassoued
-        Service-Description: Creating a service that accepts and transform files
-        / if it can be written in another language and then integrate it, it will show how good the system
-        / handles cross-languages services.
+        Service-Description: 
+            Creating a service that accepts and transform files
+            / if it can be written in another language and then integrate it, it will show how good the system
+            / handles cross-languages services.
         Tasks:
             - Read different types of files ( EXCEL, PDF, CSV, YAML).
             - Transform those files into a JSON Format that can be exploited by other services
@@ -78,8 +81,8 @@ Services:
         Team-Members:
             - Missa Jaziri
             - Rami Kammoun
-        Service-Description: This service takes data in input and generate graphics and charts with
-        / ability to generate pdf files
+        Service-Description: 
+            This service takes data in input and generate graphics and charts with ability to generate pdf files
         Tasks:
             - Read data from a JSON file according to needs (finance, research,...).
             - Visualize data for directive board [Direction].
@@ -100,8 +103,8 @@ Services:
         Team-Members:
             - Marouene Krichen
             - Taher Marzouk
-        Service-Description: This service let you read a cv in pdf format, or form and to rate it, take
-            / employees reclamations and demands for day-offs...
+        Service-Description: 
+            This service let you read a cv in pdf format, or form and to rate it, take employees reclamations and demands for day-offs...
         Tasks:
             - Read pdf format or form and generate a review (accept, decline with note) [HR]
             - Reclatmations and demands management [HR]
@@ -117,8 +120,8 @@ Services:
         Team-Members:
             - Hamza Hmaidi
             - Marouene Mahou
-        Service-Description: Create the house installation plan (hardware to be used, pricing, estimated
-        / time to completions ...
+        Service-Description: 
+            Create the house installation plan (hardware to be used, pricing, estimated time to completions ...
         Tasks:
             - Take in input a customer demand
             - Generates the plan for the this demand
@@ -127,16 +130,3 @@ Services:
             - Data in JSON files
             - Plan generation can be through conditions (on surface, budget, place ...)
             - Inform can be a simple print command or JSON file generation
-Research:
-    First-Subject:
-        Subject-Name: Communication-medium (Not now)
-        Team-Number:
-        Team-Members:
-            -
-            -
-        Subject-Description: The tools/packages we need to use to add a communication layer between all
-        / these services (middlewares ...)
-        Tasks:
-            - a lot of research and trying.
-        Context:
-            - We need a practical solution not like talend
