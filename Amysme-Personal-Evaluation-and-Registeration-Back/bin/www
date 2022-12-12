@@ -99,31 +99,33 @@ function onListening() {
 // Socket
 const io = new Server(server,{cors:{origin:"*"}});
 
-var subscriberOptions = {
-    exchange: "HumanRessources",
-    queueName: "candidature",
-    routingKeys: ["ExternalCandidature"],
+var subscriber1Options = {
+    exchange: "HR_Exchange",
+    queueName: "candidature_queue",
+    routingKeys: ["candidatures"],
+  };
+
+var subscriber2Options = {
+    exchange: "HR_Exchange",
+    queueName: "demande_reclammation_queue",
+    routingKeys: ["reclammations","demands"],
   };
    
 function onIncomingMessage(message) {
-    console.log("message", message.content.toString());
-    subscriber.ack(message);
+    console.log("message", message);
     const newMessage = JSON.parse(message.content.toString())
-    switch (newMessage.type) {
-      case "candidature":
-        io.emit("candidature",newMessage.content)
-        break;
-      case "demand":
-        io.emit("demand",newMessage.content)
-        break;
-      case "reclamation":
-        io.emit("reclamation",newMessage.content)
-        break;
-      default:
-        break;
+    console.log(newMessage);
+    if(message.fields.routingKey === 'demands'){
+      subscriberDemands.ack(message)
+      io.emit("demand",newMessage)
     }
-
-    //subscriber.nack(message);
+    else if(message.fields.routingKey === 'reclammations'){
+      subscriberDemands.ack(message)
+      io.emit("reclamation",newMessage)
+    } else {
+      subscriberCandidature.ack(message)
+      io.emit("candidature",newMessage)
+    }
 }
 
 io.on('connection', (socket) => {
@@ -136,5 +138,7 @@ io.on('connection', (socket) => {
     };
 });
 
-var subscriber = new Subscriber(subscriberOptions);
-subscriber.start(onIncomingMessage);
+var subscriberCandidature = new Subscriber(subscriber1Options);
+var subscriberDemands = new Subscriber(subscriber2Options);
+subscriberCandidature.start(onIncomingMessage);
+subscriberDemands.start(onIncomingMessage);
