@@ -113,6 +113,7 @@ var subscriber2Options = {
    
 function onIncomingMessage(message) {
     console.log("message", message);
+    console.log(message);
     const newMessage = JSON.parse(message.content.toString())
     console.log(newMessage);
     if(message.fields.routingKey === 'demands'){

@@ -2,7 +2,7 @@ import sys
 
 from csv_reader import readCSV
 from excel_reader import readEXCEL
-from pdf_reader import readPDF
+from pdf_reader import readPDF_contract
 from yaml_reader import readYAML
 
 ALLOWED_EXTENSIONS = [
@@ -19,7 +19,7 @@ def main(argv):
   print(extension)
 
   if extension == ALLOWED_EXTENSIONS[0]:
-    print(readPDF(argv[1]))
+    print(readPDF_contract(argv[1]))
   elif extension == ALLOWED_EXTENSIONS[1]:
     print(readCSV(argv[1]))
   elif extension == ALLOWED_EXTENSIONS[2]:

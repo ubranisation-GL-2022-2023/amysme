@@ -6,7 +6,7 @@ from flask import send_from_directory
 
 from csv_reader import readCSV
 from excel_reader import readEXCEL, json_to_excel
-from pdf_reader import readPDF
+from pdf_reader import readPDF_contract
 from yaml_reader import readYAML
 
 UPLOAD_FOLDER = './files'
@@ -45,7 +45,7 @@ def upload_file():
             extension = filename.split('.')[1]
             path =os.path.join(app.config['UPLOAD_FOLDER'], filename)
             if extension == 'pdf':
-                data = readPDF(path)
+                data = readPDF_contract(path)
             elif extension == 'yaml':
                 data = readYAML(path)
             elif extension == 'xlsx':

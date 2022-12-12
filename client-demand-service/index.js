@@ -336,13 +336,22 @@ function onIncomingMessage(message) {
   const newMessage = JSON.parse(message.content.toString())
   subscriber.ack(message)
   console.log(newMessage);
-  const {components, totalPrice} = handleDemande(newMessage);
-  io.emit('data', {
-    demandId: 2,
-    userId: newMessage.userId,
-    houseData: components,
-    totalBudget: totalPrice
-  })
+
+    subscriber.ack(message)
+    console.log(newMessage);
+    if(newMessage.type === "csv" || newMessage.type === "pdf" || newMessage.type === "excel" || newMessage.type === "yaml" ) {
+      console.log(newMessage.content);
+    }
+    else {
+      const {components, totalPrice} = handleDemande(newMessage);
+      io.emit('data',{
+        demandId: 2,
+        userId: newMessage.userId,
+        houseData: components,
+        totalBudget: totalPrice
+      })
+    }
+
 
 }
 
