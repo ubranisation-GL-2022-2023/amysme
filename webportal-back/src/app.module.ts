@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ClientModule } from './client/client.module';
 import { CommunicationModule } from './communication/communication.module';
+import { SupplierModule } from './supplier/supplier.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CommunicationModule } from './communication/communication.module';
     AuthenticationModule,
     ClientModule,
     CommunicationModule,
+    SupplierModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConfigService],

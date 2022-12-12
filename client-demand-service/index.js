@@ -3,13 +3,13 @@ const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 var http = require('http');
+const mongoose = require("mongoose");
+const {v4: uuidv4} = require('uuid');
 
-const { Server } = require("socket.io");
-var { Subscriber } = require("./rabbitmq/subscriber");
+const {Server} = require("socket.io");
+var {Subscriber} = require("./rabbitmq/subscriber");
 
-var { Subscriber } = require("./rabbitmq/subscriber");
-
- //   766$
+//   766$
 const One_Room_mid = [
   {
     id: 0,
@@ -227,7 +227,7 @@ const One_Room_low = [
 ]
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -237,93 +237,121 @@ app.get("/", (req, res) => {
 });
 
 const handleDemande = (data) => {
-  let hardware = []
+  let components = []
   let totalPrice = 0
-  if(Math.floor(data.max_budget / data.rooms) < 766) {
-    for(let i = 0; i < data.rooms; i++) {
-      hardware = hardware.concat(One_Room_low)
+  if (Math.floor(data.max_budget / data.rooms) < 766) {
+    for (let i = 0; i < data.rooms; i++) {
+      components = components.concat({hardware: One_Room_low, quantity: Math.floor(Math.random() * 10)})
       totalPrice = totalPrice + 620
     }
-  } else if(Math.floor(data.max_budget / data.rooms) < 1502 ) {
-    if(data.surface > 200) {
-      for(let i = 0; i < data.rooms; i++) {
-        hardware = hardware.concat(One_Room_low)
+  } else if (Math.floor(data.max_budget / data.rooms) < 1502) {
+    if (data.surface > 200) {
+      for (let i = 0; i < data.rooms; i++) {
+        One_Room_low.forEach((room) => {
+          components = components.concat({hardware: room, quantity: Math.floor(Math.random() * 10)})
+        })
         totalPrice = totalPrice + 620
       }
     } else {
-      for(let i = 0; i < data.rooms; i++) {
-        hardware = hardware.concat(One_Room_mid)
+      for (let i = 0; i < data.rooms; i++) {
+        One_Room_mid.forEach((room) => {
+          components = components.concat({hardware: room, quantity: Math.floor(Math.random() * 10)})
+        })
         totalPrice = totalPrice + 766
       }
-    } 
-  } else if(Math.floor(data.max_budget / data.rooms) > 1502 ) {
-    if(data.surface > 300){
-      for(let i = 0; i < data.rooms; i++) {
-        hardware = hardware.concat(One_Room_hig)
+    }
+  } else if (Math.floor(data.max_budget / data.rooms) > 1502) {
+    if (data.surface > 300) {
+      for (let i = 0; i < data.rooms; i++) {
+        One_Room_hig.forEach((room) => {
+          components = components.concat({hardware: room, quantity: Math.floor(Math.random() * 10)})
+        })
         totalPrice = totalPrice + 1502
       }
-    } else if(data.surface > 200) {
-      for(let i = 0; i < data.rooms; i++) {
-        hardware = hardware.concat(One_Room_low)
+    } else if (data.surface > 200) {
+      for (let i = 0; i < data.rooms; i++) {
+        One_Room_low.forEach((room) => {
+          components = components.concat({hardware: room, quantity: Math.floor(Math.random() * 10)})
+        })
         totalPrice = totalPrice + 620
       }
     } else {
-      for(let i = 0; i < data.rooms; i++) {
-        hardware = hardware.concat(One_Room_mid)
+      for (let i = 0; i < data.rooms; i++) {
+        One_Room_mid.forEach((room) => {
+          components = components.concat({hardware: room, quantity: Math.floor(Math.random() * 10)})
+        })
         totalPrice = totalPrice + 766
       }
-    } 
-  } 
+    }
+  }
   return {
-    hardware,
+    components,
     totalPrice
   }
 }
 
-app.post("/demand", (req, res) => {
-  let data  = req.body
+const Order = require("./models/Order")
 
-  if(data) {
-    const {hardware, totalPrice} = handleDemande(data);
-    res.json({
-      demandId: 1,
-      userId: data.userId,
-      houseData: hardware,
-      totalBudget: totalPrice
+app.post("/demand", async (req, res) => {
+  let data = req.body
+
+  if (data) {
+    const {components, totalPrice} = handleDemande(data);
+    const order = new Order({
+      orderId: uuidv4(),
+      dateOfRequest: Date(),
+      status: 0,
+      totalPrice: totalPrice,
+      components: components,
+      softwareVersion: "V1.0"
     });
-  
+    try {
+      await order.save();
+      res.send(order);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   } else
-  res.json({message:" No data provided "})
+    res.json({message: " No data provided "})
 
 })
 
-app.set('port',3002)
+app.set('port', 3002)
 
 var server = http.createServer(app);
 
 server.listen(3002)
 
-const io = new Server(server,{cors:{origin:"*"}});
+const io = new Server(server, {cors: {origin: "*"}});
 
 
 var subscriberOptions = {
-    exchange: "Documents_Exchange",
-    queueName: "generated_data_queue",
-    routingKeys: ["generated_data"],
-  };
+  exchange: "Documents_Exchange",
+  queueName: "generated_data_queue",
+  routingKeys: ["generated_data"],
+};
 
 function onIncomingMessage(message) {
-    // console.log("message", message);
-    const newMessage = JSON.parse(message.content.toString())
+  // console.log("message", message);
+  const newMessage = JSON.parse(message.content.toString())
+  subscriber.ack(message)
+  console.log(newMessage);
+
     subscriber.ack(message)
     console.log(newMessage);
-    const {hardware, totalPrice} = handleDemande(newMessage);
-    io.emit('data',{
-      demandId: 2,
-      userId: newMessage.userId,
-      houseData: hardware,
-      totalBudget: totalPrice
-    })
+    if(newMessage.type === "csv" || newMessage.type === "pdf" || newMessage.type === "excel" || newMessage.type === "yaml" ) {
+      console.log(newMessage.content);
+    }
+    else {
+      const {components, totalPrice} = handleDemande(newMessage);
+      io.emit('data',{
+        demandId: 2,
+        userId: newMessage.userId,
+        houseData: components,
+        totalBudget: totalPrice
+      })
+    }
+
 
 }
 
@@ -339,3 +367,23 @@ io.on('connection', (socket) => {
 
 var subscriber = new Subscriber(subscriberOptions);
 subscriber.start(onIncomingMessage);
+
+// DB Connection
+const username = "user1";
+const password = "NFDjRWqVwLWlvwoy";
+const cluster = "cluster0.1xb4gu3";
+const dbname = "";
+
+mongoose.connect(
+  `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, err => {
+    if (err) {
+      console.log("Not Connecteddd \n\n\n")
+      console.log(err)
+    } else
+      console.log('Connected to MongoDB!!!')
+  }
+);

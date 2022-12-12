@@ -1,5 +1,4 @@
 import {
-  IsAlphanumeric,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -43,7 +42,6 @@ export class ReclamationEntity extends TimestampEntity {
   @MinLength(10, {
     message: 'The reclamtion must be longer than 10 characters',
   })
-  @IsAlphanumeric()
   content?: string;
 
   @Column({

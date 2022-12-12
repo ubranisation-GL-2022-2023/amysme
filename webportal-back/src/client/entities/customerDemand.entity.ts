@@ -19,14 +19,14 @@ export class CustomerDemandEntity extends TimestampEntity {
   @ManyToOne((type) => User, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: true,
+    eager: false,
   })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
   @OneToOne((type) => HouseDataEntity, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: false,
+    eager: true,
   })
   @JoinColumn({ name: 'house_id', referencedColumnName: 'id' })
   house: HouseDataEntity;
