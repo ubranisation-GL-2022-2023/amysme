@@ -25,7 +25,7 @@ export class Supplyoffer extends TimestampEntity {
     eager: false,
   })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  user: User;
+  user?: User;
 
   @Column({
     name: 'status',
@@ -46,12 +46,12 @@ export class Supplyoffer extends TimestampEntity {
   @ArrayMinSize(1, {
     message: 'the array of raw materials must contain at least one',
   })
-  rawMaterials: RawMaterial[];
+  rawMaterials?: RawMaterial[];
 
   @Column({
     name: 'comment',
     nullable: true,
     type: String,
   })
-  comment: string;
+  comment?: string;
 }
