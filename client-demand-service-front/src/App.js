@@ -41,14 +41,16 @@ function App() {
           <div class="col col-2">Part Id</div>
           <div class="col col-3">Name</div>
           <div class="col col-4">Price</div>
-          <div class="col col-4">Action</div>
+          <div class="col col-4">Quantity</div>
+          <div class="col col-2">Action</div>
         </li>
         {demandResult.houseData.map((d,k) => (
         <li class="table-row">
         <div class="col col-1" data-label="No">{k}</div>
-        <div class="col col-2" data-label="Part Id">{d.id }</div>
-        <div class="col col-3" data-label="Name">{d.name }</div>
-        <div class="col col-4" data-label="Price">{d.price }</div>
+        <div class="col col-2" data-label="Part Id">{d.hardware.id }</div>
+        <div class="col col-3" data-label="Name">{d.hardware.name }</div>
+        <div class="col col-4" data-label="Price">{d.hardware.price }</div>
+        <div class="col col-4" data-label="Price">{d.quantity }</div>
         <div class="col col-4" data-label="Delete"><button type="button" class="btn btn-danger" onClick={()=>someDeleteRowFunction(k)}>Delete</button></div>
       </li>
         ))}
