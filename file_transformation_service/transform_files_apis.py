@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
 from csv_reader import readCSV
 from excel_reader import readEXCEL, json_to_excel
-from pdf_reader import readPDF
+from pdf_reader import readPDF_contract, readPDF_cv
 from yaml_reader import readYAML
 
 app = Flask(__name__)
@@ -22,9 +22,14 @@ def transform_csv(filename):
   return readCSV(files_root + filename)
 
 
-@app.get("/pdf/<filename>")
-def transform_pdf(filename):
-  return readPDF(files_root + filename)
+@app.get("/pdf/contract/<filename>")
+def transform_pdf_contract(filename):
+  return readPDF_contract(files_root + filename)
+
+
+@app.get("/pdf/cv/<filename>")
+def transform_pdf_cv(filename):
+  return readPDF_cv(files_root + filename)
 
 
 @app.get("/excel/<filename>")

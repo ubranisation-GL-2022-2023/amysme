@@ -6,7 +6,7 @@ from flask import send_from_directory
 
 from csv_reader import readCSV
 from excel_reader import readEXCEL, json_to_excel
-from pdf_reader import readPDF
+from pdf_reader import readPDF_contract
 from yaml_reader import readYAML
 
 UPLOAD_FOLDER = './files'
@@ -32,20 +32,20 @@ def upload_file():
         # check if the post request has the file part
         if 'file' not in request.files:
             return ('No file part')
-            
+
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             return ('No selected file')
-            
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             extension = filename.split('.')[1]
             path =os.path.join(app.config['UPLOAD_FOLDER'], filename)
             if extension == 'pdf':
-                data = readPDF(path)
+                data = readPDF_contract(path)
             elif extension == 'yaml':
                 data = readYAML(path)
             elif extension == 'xlsx':
@@ -58,7 +58,7 @@ def upload_file():
             return 'recieved'
         else:
             return ("Not allowed extension")
-        
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
