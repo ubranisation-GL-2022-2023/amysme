@@ -1,19 +1,18 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { TestDto } from '../dtos/test.dto';
+import { ReclamationEntity } from 'src/client/entities/reclamation.entity';
 
 @Injectable()
-export class CommunicationService {
-  constructor(@Inject('FIRSTSERVICE') private readonly client: ClientProxy) {}
+export class CommunicationService implements OnApplicationBootstrap {
+  constructor(
+    @Inject('RECLAMATION') private readonly reclamationClient: ClientProxy,
+  ) {}
 
-  public async sendHello(message: string): Promise<string> {
-    console.log(this.client);
-    this.client.send('3ejja', message);
-    return 'done';
+  async onApplicationBootstrap() {
+    await this.reclamationClient.connect();
   }
 
-  public async sendObjectHello(message: TestDto): Promise<string> {
-    this.client.send('louz', message);
-    return 'done';
+  public async sendReclamation(payload: any) {
+    this.reclamationClient.emit<any>('reclamation', payload);
   }
 }

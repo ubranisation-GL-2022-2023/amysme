@@ -7,6 +7,7 @@ import { HouseService } from './services/house.service';
 import { ClientController } from './controllers/client.controller';
 import { ReclamationEntity } from './entities/reclamation.entity';
 import { ReclamationService } from './services/reclamation.service';
+import { CommunicationModule } from 'src/communication/communication.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ReclamationService } from './services/reclamation.service';
       CustomerDemandEntity,
       ReclamationEntity,
     ]),
+    CommunicationModule,
   ],
   controllers: [ClientController],
   providers: [CustomerDemandService, HouseService, ReclamationService],

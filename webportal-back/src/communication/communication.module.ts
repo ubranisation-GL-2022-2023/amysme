@@ -7,13 +7,13 @@ import { CommunicationService } from './service/communication.service';
   imports: [
     ClientsModule.register([
       {
-        name: 'FIRSTSERVICE',
+        name: 'RECLAMATION',
         transport: Transport.RMQ,
         options: {
           urls: [
-            `amqps://ssloczgx:Ga1orj494MmGG5R5FYTr5orsvVQY6rh5@stingray.rmq.cloudamqp.com/ssloczgx`,
+            'amqps://ssloczgx:Ga1orj494MmGG5R5FYTr5orsvVQY6rh5@stingray.rmq.cloudamqp.com/ssloczgx',
           ],
-          queue: '3ejja',
+          queue: 'reclamation',
           queueOptions: { durable: true },
         },
       },

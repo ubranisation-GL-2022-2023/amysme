@@ -9,9 +9,8 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [
-        `amqps://ssloczgx:Ga1orj494MmGG5R5FYTr5orsvVQY6rh5@stingray.rmq.cloudamqp.com/ssloczgx`,
+        `amqps://uifekcfh:VfOSyCvhgtEaDZyMRB7UimaCXUFoHbMH@stingray.rmq.cloudamqp.com/uifekcfh`,
       ],
-      queue: '3ejja',
     },
   });
   app.useGlobalPipes(
