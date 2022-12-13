@@ -1,5 +1,7 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors")
+const bodyParser = require('body-parser')
 
 var { Publisher } = require("./rabbitmq/publisher");
 
@@ -32,6 +34,8 @@ var publisherReports = new Publisher(publisherReportsOptions);
 
 const app = express();
 const port = 3010;
+app.use(cors())
+app.use(bodyParser.json());
 
 app.get("/demand", async (req, res) => {
   // const message = req.params.message;
@@ -48,17 +52,11 @@ app.get("/demand", async (req, res) => {
   res.send(`you message is : demand`);
 });
 
-app.get("/reclammation", async (req, res) => {
+app.post("/reclammation", async (req, res) => {
   // const message = req.params.message;
-  const reclammation = {
-    _id: "63962732c6fd4e09ae9de60r",
-    reclamationId: "qsdf15948srthzrqt18943",
-    userId: "5684",
-    content: "its a content",
-    status: "0",
-  };
+  console.log(req.body)
 
-  await publisherHr.publish("reclammations", JSON.stringify(reclammation));
+  await publisherHr.publish("reclammations", JSON.stringify(req.body));
   res.send(`you message is : reclammation`);
 });
 
@@ -89,9 +87,9 @@ app.get("/candidature", async (req, res) => {
   res.send(`you message is : candidature`);
 });
 
-app.get("/projectDemand", async (req, res) => {
+app.post("/projectDemand", async (req, res) => {
   const clientDemand = req.body;
-
+  console.log(req.body)
   // const clientDemand = {
   //   userId: "58",
   //   surface: "10000",
@@ -117,7 +115,7 @@ app.get("/contract", async (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-  
+
   res.send(`you message is : client contract`);
 });
 
