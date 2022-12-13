@@ -336,7 +336,6 @@ function onIncomingMessage(message) {
   const newMessage = JSON.parse(message.content.toString())
   subscriber.ack(message)
   console.log(newMessage);
-
     subscriber.ack(message)
     console.log(newMessage);
     if(newMessage.type === "csv" || newMessage.type === "pdf" || newMessage.type === "excel" || newMessage.type === "yaml" ) {
