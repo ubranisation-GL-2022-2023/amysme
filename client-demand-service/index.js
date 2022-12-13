@@ -341,8 +341,11 @@ function onIncomingMessage(message) {
     if(newMessage.type === "csv" || newMessage.type === "pdf" || newMessage.type === "excel" || newMessage.type === "yaml" ) {
       console.log(newMessage.content);
     }
+    else if(newMessage.type === "cv" ) {
+      console.log(newMessage.content);
+    }
     else {
-      const {components, totalPrice} = handleDemande(newMessage);
+      const {components, totalPrice} = handleDemande(newMessage.content);
       io.emit('data',{
         demandId: 2,
         userId: newMessage.userId,
@@ -350,8 +353,6 @@ function onIncomingMessage(message) {
         totalBudget: totalPrice
       })
     }
-
-
 }
 
 io.on('connection', (socket) => {
