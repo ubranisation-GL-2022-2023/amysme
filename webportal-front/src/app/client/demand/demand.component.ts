@@ -1,3 +1,4 @@
+import { BusinessService } from './../../services/business.service';
 import { DemandDTO } from './models/demand-dto';
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
@@ -8,20 +9,21 @@ import { NgModule } from '@angular/core';
 })
 export class DemandComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly businessService: BusinessService) { }
 
   model: DemandDTO = {
-    houseData: {
+    house: {
       hasGarage: false,
       housePlan: 'plan.jpg',
-      surface:0,
-      numberOfRooms:0
+      surface: 0,
+      numberOfRooms: 0
     },
-    totalBudget: 0
+    budget: 0
   }
 
-  onSubmit() : void{
+  onSubmit(): void {
     console.log(this.model)
+    this.businessService.clientDemand(this.model).subscribe((data) => { console.log("success") }, (error) => { console.log(error) });
   }
 
 

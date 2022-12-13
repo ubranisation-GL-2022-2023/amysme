@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/authentication.service';
 import { LoginDTO } from './models/login-dto';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly authService: AuthService) { }
 
   model: LoginDTO = {
     login: '',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() : void{
+    this.authService.userLogin(this.model).subscribe((data)=> {}, (error)=> {console.log(error);alert("error")})
     console.log(this.model)
   }
 

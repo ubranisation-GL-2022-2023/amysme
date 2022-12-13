@@ -1,3 +1,4 @@
+import { BusinessService } from './../../services/business.service';
 import { ReclamationDTO } from './models/reclamation-dto';
 import { Component, OnInit } from '@angular/core';
 import { StatusEnum } from './models/status-enum';
@@ -8,7 +9,7 @@ import { StatusEnum } from './models/status-enum';
 })
 export class ReclamationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly businessService:BusinessService) { }
 
   model: ReclamationDTO = {
     content: '',
@@ -19,6 +20,7 @@ export class ReclamationComponent implements OnInit {
 
   onSubmit() : void{
     console.log(this.model)
+    this.businessService.clientReclamation(this.model).subscribe((data) => { console.log("success") }, (error) => { console.log(error) });
   }
 
   ngOnInit(): void {

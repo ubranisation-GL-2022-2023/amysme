@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/authentication.service';
 import { RegisterDTO } from './models/register-dto';
 import { Component, OnInit } from '@angular/core';
 import { RoleEnum } from '../models/role-enum';
@@ -8,7 +9,7 @@ import { RoleEnum } from '../models/role-enum';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly authService: AuthService) { }
 
   model: RegisterDTO = {
     username: '',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit {
   roles = Object.values(RoleEnum)
 
   onSubmit() : void{
+    this.authService.userRegister(this.model).subscribe((data)=> {}, (error)=> alert("error"))
     console.log(this.model)
   }
 
