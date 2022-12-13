@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { CommunicationService } from 'src/communication/service/communication.service';
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { Role } from 'src/decorators/role.decorator';
 import { AuthRoleGuard } from 'src/guards/auth-role.guard';
@@ -18,6 +19,7 @@ export class ClientController {
     private readonly houseService: HouseService,
     private readonly customerService: CustomerDemandService,
     private readonly reclamationService: ReclamationService,
+    private readonly communicationService: CommunicationService,
   ) {}
   @Post('customerDemand')
   @UseGuards(AuthGuard('jwt'), AuthRoleGuard)
@@ -56,10 +58,17 @@ export class ClientController {
     @Body() payload: ReclamationEntity,
     @GetUser() currentUser: User,
   ): Promise<ReclamationEntity> {
-    return await this.reclamationService.create({
+    const reclamation = await this.reclamationService.create({
       user: currentUser,
       content: payload.content,
     });
+    this.communicationService.sendReclamation({
+      reclamationId: reclamation.id,
+      userId: reclamation.user.id,
+      content: reclamation.content,
+      status: reclamation.status,
+    });
+    return reclamation;
   }
 
   @Get('reclamation')

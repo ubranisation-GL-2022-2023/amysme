@@ -7,6 +7,7 @@ import { DatabaseConfigService } from './database-config.service';
 import { UserModule } from './user/user.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ClientModule } from './client/client.module';
+import { CommunicationModule } from './communication/communication.module';
 import { SupplierModule } from './supplier/supplier.module';
 
 @Module({
@@ -22,6 +23,7 @@ import { SupplierModule } from './supplier/supplier.module';
     UserModule,
     AuthenticationModule,
     ClientModule,
+    CommunicationModule,
     SupplierModule,
   ],
   controllers: [AppController],
