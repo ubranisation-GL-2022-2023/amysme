@@ -1,5 +1,7 @@
+import { HttpService } from '@nestjs/axios';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { userInfo } from 'os';
 import { CommunicationService } from 'src/communication/service/communication.service';
 import { GetUser } from 'src/decorators/get-user.decorator';
 import { Role } from 'src/decorators/role.decorator';
@@ -20,7 +22,8 @@ export class ClientController {
     private readonly customerService: CustomerDemandService,
     private readonly reclamationService: ReclamationService,
     private readonly communicationService: CommunicationService,
-  ) {}
+    private readonly httpService: HttpService,
+  ) { }
   @Post('customerDemand')
   @UseGuards(AuthGuard('jwt'), AuthRoleGuard)
   @Role(RoleEnum.client)
@@ -35,6 +38,12 @@ export class ClientController {
       hasGarage,
       housePlan,
     });
+    this.httpService.post('http://localhost:3010/projectDemand', {
+      userId: currentUser._id,
+      surface: surface,
+      max_budget: budget,
+      rooms: numberOfRooms,
+    })
     return await this.customerService.create({
       user: currentUser,
       house: savedHouse,
@@ -62,6 +71,13 @@ export class ClientController {
       user: currentUser,
       content: payload.content,
     });
+    // this.httpService.post('http://localhost:3010/reclammation', {
+    //   _id: "63962732c6fd4e09ae9de60r",
+    //   reclamationId: "qsdf15948srthzrqt18943",
+    //   userId: currentUser._id,
+    //   content: payload.content,
+    //   status: "0",
+    // })
     this.communicationService.sendReclamation({
       reclamationId: reclamation.id,
       userId: reclamation.user.id,

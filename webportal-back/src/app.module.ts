@@ -9,6 +9,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { ClientModule } from './client/client.module';
 import { CommunicationModule } from './communication/communication.module';
 import { SupplierModule } from './supplier/supplier.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { SupplierModule } from './supplier/supplier.module';
     ClientModule,
     CommunicationModule,
     SupplierModule,
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConfigService],

@@ -8,6 +8,7 @@ import { ClientController } from './controllers/client.controller';
 import { ReclamationEntity } from './entities/reclamation.entity';
 import { ReclamationService } from './services/reclamation.service';
 import { CommunicationModule } from 'src/communication/communication.module';
+import { HttpModule } from '@nestjs/axios/dist/http.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CommunicationModule } from 'src/communication/communication.module';
       ReclamationEntity,
     ]),
     CommunicationModule,
+    HttpModule
   ],
   controllers: [ClientController],
   providers: [CustomerDemandService, HouseService, ReclamationService],
