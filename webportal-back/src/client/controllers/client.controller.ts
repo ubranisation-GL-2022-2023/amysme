@@ -38,12 +38,20 @@ export class ClientController {
       hasGarage,
       housePlan,
     });
-    this.httpService.post('http://localhost:3010/projectDemand', {
-      userId: currentUser._id,
+    await this.httpService.axiosRef.post(
+      'http://localhost:3010/projectDemand', {
+      userId: currentUser.id,
       surface: surface,
       max_budget: budget,
       rooms: numberOfRooms,
-    })
+    },
+    );
+    // this.httpService.post('http://localhost:3010/projectDemand', {
+    //   userId: currentUser.id,
+    //   surface: surface,
+    //   max_budget: budget,
+    //   rooms: numberOfRooms,
+    // }, {}).subscribe((data) => { console.log("wtf") });
     return await this.customerService.create({
       user: currentUser,
       house: savedHouse,
@@ -78,12 +86,25 @@ export class ClientController {
     //   content: payload.content,
     //   status: "0",
     // })
-    this.communicationService.sendReclamation({
+    await this.httpService.axiosRef.post(
+      'http://localhost:3010/reclammation', {
+      // userId: currentUser.id,
+      // surface: surface,
+      // max_budget: budget,
+      // rooms: numberOfRooms,
+
       reclamationId: reclamation.id,
-      userId: reclamation.user.id,
-      content: reclamation.content,
-      status: reclamation.status,
-    });
+      userId: currentUser.id,
+      content: payload.content,
+      status: payload.status,
+    },
+    );
+    // this.communicationService.sendReclamation({
+    //   reclamationId: reclamation.id,
+    //   userId: reclamation.user.id,
+    //   content: reclamation.content,
+    //   status: reclamation.status,
+    // });
     return reclamation;
   }
 

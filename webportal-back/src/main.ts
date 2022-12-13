@@ -5,6 +5,7 @@ import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   const microservice = app.connectMicroservice({
     transport: Transport.RMQ,
     options: {
