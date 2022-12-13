@@ -90,14 +90,14 @@ app.get("/candidature", async (req, res) => {
 });
 
 app.get("/projectDemand", async (req, res) => {
-  // const message = req.params.message;
+  const clientDemand = req.body;
 
-  const clientDemand = {
-    userId: "58",
-    surface: "10000",
-    max_budget: "100000",
-    rooms: "5",
-  };
+  // const clientDemand = {
+  //   userId: "58",
+  //   surface: "10000",
+  //   max_budget: "100000",
+  //   rooms: "5",
+  // };
 
   await publisherDocuments.publish(
     "generated_data",
